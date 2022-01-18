@@ -2,7 +2,7 @@
   "name": "service-myapps-login",
   "version": "1.0.0",
   "description": "Service Login",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "dev": "pm2 start app.js",
     "restart":"pm2 restart 0",
