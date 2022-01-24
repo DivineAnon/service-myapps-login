@@ -3,6 +3,13 @@ const  sql = require('mssql');
 const axios = require('axios');
 const { json } = require('body-parser');
 const generator = require('generate-password');
+require('dotenv').config()
+var jwt = require('jsonwebtoken');
+
+function generateToken(data){
+    var token = jwt.sign({data:data}, process.env.TOKEN_SECRET, { expiresIn: 60*60*24 });
+    return token
+}
 
 async function login(userlogin, password) {
     try{
@@ -86,5 +93,6 @@ module.exports = {
     menu,
     submenu,
     forgotpass,
-    getdataemail
+    getdataemail,
+    generateToken
 }
