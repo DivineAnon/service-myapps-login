@@ -136,7 +136,52 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       response.json(data[0]);
     })
   })
-
+  router.route('/user-data').get((request, response) => {
+     
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+       
+      login.getLoginData(decoded?.data[0]?.loginid).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+      })
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
+  router.route('/reset-password').post((request, response)  => {
+     
+    let password = request.body?.password
+     
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      login.resetPasswordData(decoded?.data[0]?.loginid,password).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Reset Password Succsess',data});
+      })
+      
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
 var  port = process.env.PORT || 8091;
 app.listen(port);
 console.log('Order API is runnning at ' + port);
