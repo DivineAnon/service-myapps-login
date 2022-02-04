@@ -136,6 +136,26 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       response.json(data[0]);
     })
   })
+  router.route('/list-menu').get((request, response) => {
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+       
+      login.listMenu(decoded?.data[0]?.loginid ).then((data) => {
+        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+      })
+    } catch(err) {
+        
+        
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
   router.route('/user-data').get((request, response) => {
      
     let token = request.headers.authorization 
@@ -168,6 +188,83 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       login.resetPasswordData(decoded?.data[0]?.loginid,password).then((data) => {
  
         response.json({status:'Succsess',message:'Reset Password Succsess',data});
+      })
+      
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
+  router.route('/ismenu-exist').post((request, response)  => {
+   
+    let code = request.body?.code
+     
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      login.isExistMenu(code).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Succsess check',data:data[0]});
+      })
+      
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
+  router.route('/update-menu').post((request, response)  => {
+     
+    let kode = request.body?.code
+    let nama = request.body?.name
+    let file = request.body?.file
+    let folder = request.body?.folder 
+     
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+       
+      login.updateMenu(kode,nama,file,folder,decoded?.data[0]?.loginid).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Succsess update menu',data});
+      })
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
+  router.route('/add-menu').post((request, response)  => {
+     
+    let kode = request.body?.code
+    let nama = request.body?.name
+    let file = request.body?.file
+    let folder = request.body?.folder 
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      login.addMenu(kode,nama,file,folder,decoded?.data[0]?.loginid).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Succsess add menu',data});
       })
       
     } catch(err) {

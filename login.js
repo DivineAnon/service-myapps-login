@@ -41,7 +41,7 @@ async function resetPasswordData(userlogin, password) {
 async function menuProgram(userlogin) {
     try{
         let pool = await sql.connect(configPortal);
-        let login = await pool.request().input('userlogin', sql.VarChar, userlogin).query("select distinct a.m_program, c.m_nama, c.m_fawasome_react from msakses a, msmenu b, msprogram c where a.m_login = @userlogin and a.m_akses = 'Y' and a.m_program = b.m_program and a.m_kode = b.m_kode and a.m_program = c.m_kode");
+        let login = await pool.request().input('userlogin', sql.VarChar, userlogin).query("select distinct a.m_program, c.m_nama, c.m_fawasome_react,c.m_folder,c.m_object from msakses a, msmenu b, msprogram c where a.m_login = @userlogin and a.m_akses = 'Y' and a.m_program = b.m_program and a.m_kode = b.m_kode and a.m_program = c.m_kode");
         return  login.recordsets;
     }catch(error){
         console.log(error);
@@ -93,11 +93,50 @@ async function getdataemail(userlogin) {
         console.log(error);
     }
 }
-
+async function isExistMenu(kode) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`select isnull(count(*),0) as jumrow from msprogram where m_kode = '${kode}'`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function updateMenu(code,nama,file,folder) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`update msprogram set m_nama = '${nama}', m_folder = '${folder}', m_object = '${file}' where m_kode = '${code}'`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function addMenu(kode,nama,file,folder,created) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`insert into msprogram (m_kode, m_nama, m_object, m_folder,m_createby) values ('${kode}','${nama}','${file}','${folder}','${created}')`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function listMenu() {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`select * from msprogram order by m_kode asc`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
 module.exports = {
     login,
     menuProgram,
+    listMenu,
     menu,
+    isExistMenu,
+    addMenu,
+    updateMenu,
     getLoginData,
     resetPasswordData,
     submenu,
