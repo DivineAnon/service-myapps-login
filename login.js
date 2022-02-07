@@ -96,16 +96,25 @@ async function getdataemail(userlogin) {
 async function isExistMenu(kode) {
     try{
         let pool = await sql.connect(configPortal);
-        let login = await pool.request().query(`select isnull(count(*),0) as jumrow from msprogram where m_kode = '${kode}'`);
+        let exist = await pool.request().query(`select isnull(count(*),0) as jumrow from msprogram where m_kode = '${kode}'`);
+        return  exist.recordsets[0][0]?.jumrow;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function deleteMenu(kode) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`DELETE FROM msprogram  where m_kode = '${kode}'`);
         return  login.recordsets;
     }catch(error){
         console.log(error);
     }
 }
-async function updateMenu(code,nama,file,folder) {
+async function updateMenu(code,nama,file,folder,edit) {
     try{
         let pool = await sql.connect(configPortal);
-        let login = await pool.request().query(`update msprogram set m_nama = '${nama}', m_folder = '${folder}', m_object = '${file}' where m_kode = '${code}'`);
+        let login = await pool.request().query(`update msprogram set m_nama = '${nama}',m_editby='${edit}', m_folder = '${folder}', m_object = '${file}' where m_kode = '${code}'`);
         return  login.recordsets;
     }catch(error){
         console.log(error);
@@ -129,12 +138,69 @@ async function listMenu() {
         console.log(error);
     }
 }
+async function listSubMenu(code) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`select * from msmenu where m_program = '${code}' order by m_program asc`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function updateSubMenu(m_program,kode,nama,file,child,updated) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`update msmenu set m_nama = '${nama}', m_object = '${file}',m_submenu = '${child}',m_updatedby= '${updated}' where m_kode = '${kode}' and m_program = '${m_program}'`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function addSubMenu(m_program,kode,nama,file,child,created) {
+    try{
+        let pool = await sql.connect(configPortal);
+       
+        
+        let add = await pool.request().query(`insert into msmenu (m_program,m_kode, m_nama, m_object, m_submenu,m_createdby) values ('${m_program}','${kode}','${nama}','${file}','${child}','${created}')`);
+        return  add?.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function isExistSubMenu(m_program,kode ) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let exist = await pool.request().query(`select isnull(count(*),0) as jumrow from msmenu where m_kode = '${kode}' and m_program = '${m_program}'`);
+ 
+         
+        return  exist.recordsets[0][0]?.jumrow;
+        }catch(error){
+            console.log(error);
+        }
+}
+async function deleteSubMenu(m_program,kode ) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let exist = await pool.request().query(`DELETE FROM msmenu  where m_kode = '${kode}' and m_program = '${m_program}'`);
+ 
+         
+        return  exist.recordsets[0][0]?.jumrow;
+        }catch(error){
+            console.log(error);
+        }
+}
 module.exports = {
     login,
+    deleteSubMenu,
+    deleteMenu,
     menuProgram,
+    addSubMenu,
+    listSubMenu,
     listMenu,
+    isExistSubMenu,
     menu,
     isExistMenu,
+    updateSubMenu,
     addMenu,
     updateMenu,
     getLoginData,

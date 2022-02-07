@@ -9,6 +9,7 @@ var  router = express.Router();
 var  bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express'),
 swaggerDocument = require('./swagger.json');
+const { check,validationResult ,oneOf } = require('express-validator');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:  true }));
 
@@ -211,7 +212,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       login.isExistMenu(code).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess check',data:data[0]});
+        response.json({status:'Succsess',message:'Succsess check',data:data});
       })
       
     } catch(err) {
@@ -226,8 +227,58 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       // err
     }
   })
-  router.route('/update-menu').post((request, response)  => {
+  router.route('/delete-menu').delete(
+    
+    check('code').exists().withMessage('code is not null'),
+    check('code').custom((value, { req,res })=>{
+      return   login.isExistMenu(req?.body?.code).then((data) => {
+        if(data<1){
+          return Promise.reject('Code not exist'); 
+        }
+       
+      })
+    }) ,(request, response)  => {
+   
+    let code = request.body?.code
      
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      login.deleteMenu(code).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Succsess delete menu',data:data});
+      })
+      
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
+  router.route('/update-menu').post(
+    check('code').exists().withMessage('code is not null'),
+  check('code').custom((value, { req,res })=>{
+    return   login.isExistMenu(req?.body?.code).then((data) => {
+      if(data<1){
+        return Promise.reject('Code not exist'); 
+      }
+     
+    })
+  }) ,
+  check('file').exists().withMessage('file is not null'),
+  check('name').exists().withMessage('name  is not null'),
+  check('folder').exists().withMessage('folder is not null'),
+    (request, response)  => {
+      const errors = validationResult(request);
+      if (!errors.isEmpty()) {
+        return response.status(400).json({ errors: errors.array()  });
+      }
     let kode = request.body?.code
     let nama = request.body?.name
     let file = request.body?.file
@@ -253,8 +304,24 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       // err
     }
   })
-  router.route('/add-menu').post((request, response)  => {
+  router.route('/add-menu').post(
+  check('code').exists().withMessage('code is not null'),
+  check('code').custom((value, { req,res })=>{
+    return   login.isExistMenu(req?.body?.code).then((data) => {
+      if(data>0){
+        return Promise.reject('Code is already exist'); 
+      }
      
+    })
+  }) ,
+  check('file').exists().withMessage('file is not null'),
+  check('name').exists().withMessage('name  is not null'),
+  check('folder').exists().withMessage('folder is not null'),
+  (request, response)  => {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      return response.status(400).json({ errors: errors.array()  });
+    }
     let kode = request.body?.code
     let nama = request.body?.name
     let file = request.body?.file
@@ -278,6 +345,162 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       }
       // err
     }
+  })
+  router.route('/list-sub-menu/:kode').get((request, response) => {
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+       
+      login.listSubMenu(request.params.kode).then((data) => {
+        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+      })
+    } catch(err) {
+        
+        
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
+  
+  router.route('/update-sub-menu').post(
+    check('m_program').isLength({ min: 1 }).exists().withMessage('code is not null'),
+    check('code').isLength({ min: 1 }).exists().withMessage('code sub is not null'),
+   
+    check('code').custom((value, { req,res })=>{
+      return   login.isExistSubMenu(req?.body?.m_program,req?.body?.code).then((data) => {
+        if(data<1){
+          return Promise.reject('Code not exist'); 
+        }
+       
+      })
+    }) ,
+    check('name').isLength({ min: 1 }).exists().withMessage('name is not null'),
+    check('file').isLength({ min: 1 }).exists().withMessage('file name is not null'),
+    check('child').isLength({ min: 1 }).exists().withMessage('child sub is not null'),
+    (request, response)  => {
+      const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      return response.status(400).json({ errors: errors.array()  });
+    }
+    let m_program = request.body?.m_program
+    let kode = request.body?.code
+    let nama = request.body?.name
+    let file = request.body?.file
+    let child = request.body?.child 
+     
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+       
+      login.updateSubMenu(m_program,kode,nama,file,child,decoded?.data[0]?.loginid).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Succsess update menu',data});
+      })
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
+  router.route('/delete-submenu').delete(
+    check('code').exists().withMessage('code is not null'),
+    check('m_program').exists().withMessage('m_program is not null'),
+    check('code').custom((value, { req,res })=>{
+      return   login.isExistSubMenu(req?.body?.m_program,req?.body?.code).then((data) => {
+        if(data<1){
+          return Promise.reject('Code not exist'); 
+        }
+       
+      })
+    }) ,
+    (request, response)  => {
+      const errors = validationResult(request);
+      if (!errors.isEmpty()) {
+        return response.status(400).json({ errors: errors.array()  });
+      }
+    let code = request.body?.code
+    let m_program = request.body?.m_program
+     
+    let token = request.headers.authorization 
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      login.deleteSubMenu(m_program,code).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Succsess delete sub menu',data:data});
+      })
+      
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  })
+  router.route('/add-sub-menu').post(
+    check('m_program').exists().isLength({ min: 1 }).withMessage('code is not null'),
+    check('code').exists().isLength({ min: 1 }).withMessage('code sub is not null'),
+   
+    check('code').custom((value, { req,res })=>{
+      return   login.isExistSubMenu(req?.body?.m_program,req?.body?.code).then((data) => {
+        if(data>0){
+          return Promise.reject('Code already exist'); 
+        }
+       
+      })
+    }) ,
+    check('name').isLength({ min: 1 }).exists().withMessage('name is not null'),
+    check('file').exists().withMessage('file name is not null'),
+    check('child').exists().withMessage('child sub is not null'),
+    (request, response)  => {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      return response.status(400).json({ errors: errors.array()  });
+    }
+     
+    let m_program = request.body?.m_program
+    let kode = request.body?.code
+    let nama = request.body?.name
+    let file = request.body?.file
+    let child = request.body?.child 
+
+
+    let token = request.headers.authorization 
+  
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      login.addSubMenu(m_program,kode,nama,file,child,decoded?.data[0]?.loginid).then((data) => {
+ 
+        response.json({status:'Succsess',message:'Succsess add sub menu',data:data});
+      })
+      
+    } catch(err) {
+      
+      
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+        
+      }
+      // err
+    }
+  
   })
 var  port = process.env.PORT || 8091;
 app.listen(port);
