@@ -2,18 +2,18 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "Documentation API MYAPPS PABRIK",
+        "title": "Documentation API MYAPPS LOGIN",
         "description": "Ini Dokumentasi API untuk semua respon yang didapatkan dari API",
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "103.247.217.10:8091",
+    "host": "localhost:8089",
     "basePath": "/api/",
     "tags": [{
-        "name": "API MYAPPS PABRIK",
-        "description": "Get ALL Data API MYAPPS PABRIK"
+        "name": "API MYAPPS LOGIN",
+        "description": "Get Data API MYAPPS LOGIN"
     }],
     "schemes": [
         "http",
@@ -26,391 +26,552 @@
         "application/json"
     ],
     "paths": {
-        "/ranking-cluster-10": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 1.0"
-                ],
-                "summary": "Get All Data for Ranking Cluster 1.0",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-10"
-                        }
-                    }
-                }
-            }
-        },        
-        "/ranking-cluster-21": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 2.1"
-                ],
-                "summary": "Get All Data for Ranking Cluster 2.1",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-21"
-                        }
-                    }
-                }
-            }
-        },        
-        "/ranking-cluster-22": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 2.2"
-                ],
-                "summary": "Get All Data for Ranking Cluster 2.2",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-22"
-                        }
-                    }
-                }
-            }
-        },        
-        "/ranking-cluster-23": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 2.3"
-                ],
-                "summary": "Get All Data for Ranking Cluster 2.3",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-23"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-24": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 2.4"
-                ],
-                "summary": "Get All Data for Ranking Cluster 2.4",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-24"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-25": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 2.5"
-                ],
-                "summary": "Get All Data for Ranking Cluster 2.5",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-25"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-26": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 2.6"
-                ],
-                "summary": "Get All Data for Ranking Cluster 2.6",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-26"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-27": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 2.7"
-                ],
-                "summary": "Get All Data for Ranking Cluster 2.7",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-27"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-31": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 3.1"
-                ],
-                "summary": "Get All Data for Ranking Cluster 3.1",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-31"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-32": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 3.2"
-                ],
-                "summary": "Get All Data for Ranking Cluster 3.2",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-32"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-33": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 3.3"
-                ],
-                "summary": "Get All Data for Ranking Cluster 3.3",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-33"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-34": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 3.4"
-                ],
-                "summary": "Get All Data for Ranking Cluster 3.4",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-34"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-35": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 3.5"
-                ],
-                "summary": "Get All Data for Ranking Cluster 3.5",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-35"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-41": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 4.1"
-                ],
-                "summary": "Get All Data for Ranking Cluster 4.1",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-41"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-42": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 4.2"
-                ],
-                "summary": "Get All Data for Ranking Cluster 4.2",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-42"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-43": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 4.3"
-                ],
-                "summary": "Get All Data for Ranking Cluster 4.3",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-43"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-44": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 4.4"
-                ],
-                "summary": "Get All Data for Ranking Cluster 4.4",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-44"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-45": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 4.5"
-                ],
-                "summary": "Get All Data for Ranking Cluster 4.5",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-45"
-                        }
-                    }
-                }
-            }
-        },
-        "/ranking-cluster-46": {
-            "get": {
-                "tags": [
-                    "Ranking Cluster 4.6"
-                ],
-                "summary": "Get All Data for Ranking Cluster 4.6",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api/ranking-cluster-46"
-                        }
-                    }
-                }
-            }
-        }
-        
-
-
-    },
-    "definitions": {
-        "User": {
-            "required": [
-                "name",
-                "_id",
-                "companies"
-            ],
-            "properties": {
-                "_id": {
-                    "type": "integer",
-                    "uniqueItems": true
-                },
-                "isPublic": {
-                    "type": "boolean"
-                },
-                "name": {
+        "/login": {
+            "parameters": [
+                {
+                    "name": "nik",
+                    "in": "path",
+                    "required": true,
+                    "description": "NIK",
                     "type": "string"
                 },
-                "books": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "amount": {
-                                "type": "number"
-                            }
-                        }
-                    }
-                },
-                "companies": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
+                {
+                    "name": "password",
+                    "in": "path",
+                    "required": true,
+                    "description": "Password",
+                    "type": "string"
+                }
+            ],
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Post Login",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
                     }
                 }
             }
         },
-        "updateUser": {
-            "required": [
-                "name",
-                "companies"
-            ],
-            "properties": {
-                "isPublic": {
-                    "type": "boolean"
-                },
-                "name": {
+        "/menuprogram": {
+            "parameters": [{
+                "name": "Authorization",
+                "in": "header",
+                "required": true,
+                "description": "Token Authorization",
+                "type": "string"
+            }],
+            "get": {
+                "tags": [
+                    "Menu Program"
+                ],
+                "summary": "Get Menu Program",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/list-menu": {
+            "parameters": [{
+                "name": "Authorization",
+                "in": "header",
+                "required": true,
+                "description": "Token Authorization",
+                "type": "string"
+            }],
+            "get": {
+                "tags": [
+                    "List Menu"
+                ],
+                "summary": "Get List Menu",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/user-data": {
+            "parameters": [{
+                "name": "Authorization",
+                "in": "header",
+                "required": true,
+                "description": "Token Authorization",
+                "type": "string"
+            }],
+            "get": {
+                "tags": [
+                    "User Data"
+                ],
+                "summary": "Get User Data",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/reset-password": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
                     "type": "string"
                 },
-                "books": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "amount": {
-                                "type": "number"
-                            }
-                        }
-                    }
-                },
-                "companies": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
+                {
+                    "name": "password",
+                    "in": "path",
+                    "required": true,
+                    "description": "Password",
+                    "type": "string"
+                }
+            ],
+            "post": {
+                "tags": [
+                    "Reset Password"
+                ],
+                "summary": "Post Reset Password",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
                     }
                 }
             }
         },
-        "Users": {
-            "type": "array",
-            "$ref": "#/definitions/User"
+        "/ismenu-exist": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
+                    "type": "string"
+                },
+                {
+                    "name": "code",
+                    "in": "path",
+                    "required": true,
+                    "description": "Kode Menu",
+                    "type": "string"
+                }
+            ],
+            "post": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Post Exist Menu",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/delete-menu": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
+                    "type": "string"
+                },
+                {
+                    "name": "code",
+                    "in": "path",
+                    "required": true,
+                    "description": "Kode Menu",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Delete Menu",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/update-menu": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
+                    "type": "string"
+                },
+                {
+                    "name": "code",
+                    "in": "path",
+                    "required": true,
+                    "description": "Kode Menu",
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "in": "path",
+                    "required": true,
+                    "description": "Name Menu",
+                    "type": "string"
+                },
+                {
+                    "name": "file",
+                    "in": "path",
+                    "required": true,
+                    "description": "File Menu",
+                    "type": "string"
+                },
+                {
+                    "name": "folder",
+                    "in": "path",
+                    "required": true,
+                    "description": "Folder Menu",
+                    "type": "string"
+                }
+            ],
+            "post": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Update Menu",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/add-menu": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
+                    "type": "string"
+                },
+                {
+                    "name": "code",
+                    "in": "path",
+                    "required": true,
+                    "description": "Kode Menu",
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "in": "path",
+                    "required": true,
+                    "description": "Name Menu",
+                    "type": "string"
+                },
+                {
+                    "name": "file",
+                    "in": "path",
+                    "required": true,
+                    "description": "File Menu",
+                    "type": "string"
+                },
+                {
+                    "name": "folder",
+                    "in": "path",
+                    "required": true,
+                    "description": "Folder Menu",
+                    "type": "string"
+                }
+            ],
+            "post": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Add Menu",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/forgot-pass/{userlogin}": {
+            "parameters": [
+                {
+                    "name": "userlogin",
+                    "in": "path",
+                    "required": true,
+                    "description": "User Login",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Forgot Password"
+                ],
+                "summary": "Get Forgot Password",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/get-email/{userlogin}": {
+            "parameters": [
+                {
+                    "name": "userlogin",
+                    "in": "path",
+                    "required": true,
+                    "description": "User Login",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Email"
+                ],
+                "summary": "Get Email",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/menu/{kodeprogram}": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
+                    "type": "string"
+                },
+                {
+                    "name": "kodeprogram",
+                    "in": "path",
+                    "required": true,
+                    "description": "Kode Program",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Get Menu",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/submenu/{kodeprogram}/{kodemenu}": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
+                    "type": "string"
+                },
+                {
+                    "name": "kodeprogram",
+                    "in": "path",
+                    "required": true,
+                    "description": "Kode Program",
+                    "type": "string"
+                },                
+                {
+                    "name": "kodemenu",
+                    "in": "path",
+                    "required": true,
+                    "description": "Kode Menu",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Sub Menu"
+                ],
+                "summary": "Get Sub Menu",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/logindata/{userlogin}/{password}": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
+                    "type": "string"
+                },
+                {
+                    "name": "userlogin",
+                    "in": "path",
+                    "required": true,
+                    "description": "User Login",
+                    "type": "string"
+                },                
+                {
+                    "name": "password",
+                    "in": "path",
+                    "required": true,
+                    "description": "Password",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Get Login",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/login/{userlogin}/{password}": {
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "description": "Token Authorization",
+                    "type": "string"
+                },
+                {
+                    "name": "userlogin",
+                    "in": "path",
+                    "required": true,
+                    "description": "User Login",
+                    "type": "string"
+                },                
+                {
+                    "name": "password",
+                    "in": "path",
+                    "required": true,
+                    "description": "Password",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Get Login",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
         }
     }
 }

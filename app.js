@@ -30,17 +30,16 @@ router.use((request, response, next) => {
   response.header('Authorization');
   next();
 });
+
 router.route('/login').post((request, response) => {
   let user = request.body?.user
   let password = request.body?.password
   login.login(user, password).then((data) => {
     var token = login.generateToken(data[0])
     response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
-    
   })
-  
-   
 })
+
 router.route('/login/:userlogin/:password').get((request, response) => {
     login.login(request.params.userlogin, request.params.password).then((data) => {
       var token = login.generateToken(data[0])
@@ -137,6 +136,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       response.json(data[0]);
     })
   })
+  
   router.route('/list-menu').get((request, response) => {
     let token = request.headers.authorization 
     try {
