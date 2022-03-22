@@ -12,9 +12,6 @@ swaggerDocument = require('./swagger.json');
 const { check,validationResult ,oneOf } = require('express-validator');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:  true }));
-
- 
-
  // to support URL-encoded bodies
 app.use(cors());
 app.use('/api', router);
