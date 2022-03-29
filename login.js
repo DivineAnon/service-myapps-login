@@ -19,7 +19,7 @@ async function login(userlogin, password) {
     }catch(error){
         console.log(error);
     }
-}
+} 
 async function getLoginData(userlogin) {
     try{ 
         let pool = await sql.connect(configPortal);
