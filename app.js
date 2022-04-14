@@ -501,4 +501,5 @@ router.route('/login/:userlogin/:password').get((request, response) => {
   })
 var  port = process.env.PORT || 8091;
 app.listen(port);
-console.log('Order API is runnning at ' + port);
+console.log('Order API is runnning at ' + process.env.PORT);
+console.log('Token ' + process.env.TOKEN_SECRET);
