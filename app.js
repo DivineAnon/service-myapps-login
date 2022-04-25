@@ -4,33 +4,60 @@ var  express = require('express');
 var  moment = require('moment');
 var jwt = require('jsonwebtoken');
 var  cors = require('cors');
+var internetAvailable = require("internet-available");
+// var timeout = require('connect-timeout')
+// var cookieParser = require('cookie-parser')
 var  app = express();
+// app.use(timeout('1s'))
 var  router = express.Router();
 var  bodyParser = require('body-parser');
+
+ 
 const swaggerUi = require('swagger-ui-express'),
 swaggerDocument = require('./swagger.json');
 const { check,validationResult ,oneOf } = require('express-validator');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:  true }));
+// app.use()
  // to support URL-encoded bodies
 app.use(cors());
 app.use('/api', router);
+ 
 app.use(
   '/api-docs',
   swaggerUi.serve, 
   swaggerUi.setup(swaggerDocument)
 );
-
+ 
+// function haltOnTimedout (req, res, next) {
+//   if (!req.timedout) {next() }else{console.log('timeout')}
+  
+// }
 router.use((request, response, next) => {
-  console.log('middleware');
-  response.header('Access-Control-Allow-Origin', '*');
-  response.header('Authorization');
+  internetAvailable({
+    // Provide maximum execution time for the verification
+    timeout: 10000,
+    // If it tries 5 times and it fails, then it will throw no internet
+    retries: 5
+  }).then(() => {
+    console.log('middleware');
+    response.header('Access-Control-Allow-Origin', '*');
+    response.header('Authorization');
   next();
+    console.log('internet')
+  }).catch(() => {
+    console.log('no internet')
+    response.status(503).json({ status: 'Connection error !',message:'Please check your connection' });
+   
+  })
+  
 });
 
 router.route('/login').post((request, response) => {
   let user = request.body?.user
   let password = request.body?.password
+ 
+  
   login.login(user, password).then((data) => {
     var token = login.generateToken(data[0])
     response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
@@ -499,7 +526,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
     }
   
   })
-var  port = process.env.PORT || 8091;
+var  port = process.env.PORT || 8096;
 app.listen(port);
 console.log('Order API is runnning at ' + process.env.PORT);
 console.log('Token ' + process.env.TOKEN_SECRET);
