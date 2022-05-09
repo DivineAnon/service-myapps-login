@@ -55,6 +55,15 @@ async function resetPasswordData(userlogin, password) {
         console.log(error);
     }
 }
+async function notification(userlogin) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let data = await pool.request().query(`exec sp_notif '140639' `);
+        return  data.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
 async function menuProgram(userlogin) {
     try{
         let pool = await sql.connect(configPortal);
@@ -207,6 +216,7 @@ async function deleteSubMenu(m_program,kode ) {
         }
 }
 module.exports = {
+    notification,
     login,
     deleteSubMenu,
     deleteMenu,

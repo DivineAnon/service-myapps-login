@@ -63,7 +63,27 @@ router.route('/login').post((request, response) => {
     response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
   })
 })
-
+router.route('/notification-portal').post((request, response) => {
+  let token = request.headers.authorization 
+  try {
+    var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+     
+    login.notification(decoded?.data[0]?.loginid).then((data) => {
+    
+      response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+    })
+  } catch(err) {
+   
+  
+    if(err?.name==='TokenExpiredError'){
+      response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+    }else{
+      response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+       
+    }
+    // err
+  }
+})
 router.route('/login/:userlogin/:password').get((request, response) => {
     login.login(request.params.userlogin, request.params.password).then((data) => {
       var token = login.generateToken(data[0])
