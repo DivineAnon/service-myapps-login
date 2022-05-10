@@ -58,7 +58,8 @@ async function resetPasswordData(userlogin, password) {
 async function notification(userlogin) {
     try{
         let pool = await sql.connect(configPortal);
-        let data = await pool.request().query(`exec sp_notif '140639' `);
+        // let data = await pool.request().query(`exec sp_notif '140639' `);
+        let data = await pool.request().query(`exec sp_notif '${userlogin}' `);
         return  data.recordsets;
     }catch(error){
         console.log(error);
