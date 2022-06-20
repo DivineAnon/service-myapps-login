@@ -84,6 +84,29 @@ router.route('/notification-portal').post((request, response) => {
     // err
   }
 })
+router.route('/select-jabatan').post((request, response) => {
+  let token = request.headers.authorization 
+  let search = request.body?.search
+  try {
+    var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+     
+    login.selectJabatanGroup(search).then((data) => {
+    
+      response.json({status:'Succsess',message:'Succsess fetch data',data:data});
+    })
+  } catch(err) {
+   
+  
+    if(err?.name==='TokenExpiredError'){
+      response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+    }else{
+      response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+       
+    }
+    // err
+  }
+})
+
 router.route('/login/:userlogin/:password').get((request, response) => {
     login.login(request.params.userlogin, request.params.password).then((data) => {
       var token = login.generateToken(data[0])

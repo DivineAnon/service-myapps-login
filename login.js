@@ -26,12 +26,34 @@ async function login(userlogin, password) {
          b.m_jabatan,b.m_subdivisinew as brand2,
          b.m_lokasi as lokasi, b.m_subdivisinew as subdivisinew, 
          convert(varchar(20),b.m_tglkeluar,103) as cotglkeluar, 
-         b.m_tglkeluar as tglkeluar, a.m_status as status FROM 
-         msuser a, dbhrd.dbo.mskaryawan b, 
-         dbhrd.dbo.msdetilkaryawan c 
+         b.m_tglkeluar as tglkeluar, a.m_status as status, 
+         d.m_emailkantor
+         FROM 
+         msuser a
+         join dbhrd.dbo.mskaryawan b on a.m_nik = b.m_nik 
+         join dbhrd.dbo.msdetilkaryawan c on a.m_nik = c.m_nik
+         join dbhrd.dbo.msemailkaryawan d on a.m_nik = d.m_nik
          WHERE a.m_nik = b.m_nik AND b.m_nik = c.m_nik 
-         AND UPPER(a.m_login) = @userlogin AND 
-         PWDCOMPARE(@password, m_newpass) = 1`);
+          AND UPPER(a.m_login) = @userlogin AND 
+         PWDCOMPARE(@password, a.m_newpass) = 1`)
+        // query(`SELECT '01' as m_program, a.m_login as loginid, 
+        // b.m_nik as nik, c.m_foto as profile, 
+        // b.m_nama as nama, b.m_cabang as cabang,
+        //  b.m_departemen as departemen, b.m_divisi as divisi, 
+        //  b.m_subdivisi as subdivisi, b.m_golkar as level, 
+        //  a.m_brand as brand, a.m_lokasi as store, 
+        //  a.m_stock as stock, a.m_divisi2 as groupuser, 
+        //  b.m_jabatan,b.m_subdivisinew as brand2,
+        //  b.m_lokasi as lokasi, b.m_subdivisinew as subdivisinew, 
+        //  convert(varchar(20),b.m_tglkeluar,103) as cotglkeluar, 
+        //  b.m_tglkeluar as tglkeluar, a.m_status as status, 
+        //  d.m_emailkantor FROM 
+        //  msuser a, dbhrd.dbo.mskaryawan b, 
+        //  dbhrd.dbo.msdetilkaryawan c ,
+        //  dbhrd.dbo.msemailkaryawan d 
+        //  WHERE a.m_nik = b.m_nik AND b.m_nik = c.m_nik 
+        //  AND UPPER(a.m_login) = @userlogin AND 
+        //  PWDCOMPARE(@password, m_newpass) = 1`);
         return  login.recordsets;
     }catch(error){
         console.log(error);
@@ -216,7 +238,33 @@ async function deleteSubMenu(m_program,kode ) {
             console.log(error);
         }
 }
+
+async function selectJabatanGroup( 
+    search
+    ) {
+        let query = `select top 5  m_kode as value, m_nama as label from msjabatan
+        where m_nama like '%${search?.toUpperCase()}%' `
+   
+    try{
+        let pool = await sql.connect(configPortal);
+        let data = await pool.request().query(query);
+   
+        let dats = data?.recordsets[0]
+        let arr = [{value:'',label:'All'}]
+        dats?.map((d)=>{
+            arr.push(d)
+        })
+       
+        return  {
+          data:arr
+        //   search
+        };
+    }catch(error){
+        console.log({error})
+    }
+  }
 module.exports = {
+    selectJabatanGroup,
     notification,
     login,
     deleteSubMenu,
