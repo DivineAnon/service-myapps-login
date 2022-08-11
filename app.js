@@ -59,8 +59,12 @@ router.route('/login').post((request, response) => {
  
   
   login.login(user, password).then((data) => {
-    var token = login.generateToken(data[0])
-    response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
+    if(data[0]?.length>0){
+      var token = login.generateToken(data[0])
+      response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
+    }else{
+      response.status(403 ).json({ status: 'Fail',message:'Wrong NIK Or Password'});
+    }
   })
 })
 router.route('/notification-portal').post((request, response) => {
