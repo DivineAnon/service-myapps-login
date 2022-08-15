@@ -59,6 +59,35 @@ async function login(userlogin, password) {
         console.log(error);
     }
 } 
+async function loginEproc(userlogin) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().input('userlogin', sql.VarChar, userlogin).
+        query(`SELECT '01' as m_program, a.m_login as loginid, 
+        b.m_nik as nik, c.m_foto as profile, 
+        b.m_nama as nama, b.m_cabang as cabang,
+         b.m_departemen as departemen, b.m_divisi as divisi, 
+         b.m_subdivisi as subdivisi, b.m_golkar as level, 
+         a.m_brand as brand, a.m_lokasi as store, 
+         a.m_stock as stock, a.m_divisi2 as groupuser, 
+         b.m_jabatan,b.m_subdivisinew as brand2,
+         b.m_lokasi as lokasi, b.m_subdivisinew as subdivisinew, 
+         convert(varchar(20),b.m_tglkeluar,103) as cotglkeluar, 
+         b.m_tglkeluar as tglkeluar, a.m_status as status, 
+         d.m_emailkantor
+         FROM 
+         msuser a
+         join dbhrd.dbo.mskaryawan b on a.m_nik = b.m_nik 
+         join dbhrd.dbo.msdetilkaryawan c on a.m_nik = c.m_nik
+         join dbhrd.dbo.msemailkaryawan d on a.m_nik = d.m_nik
+         WHERE a.m_nik = b.m_nik AND b.m_nik = c.m_nik 
+          AND UPPER(a.m_login) = @userlogin `)
+      
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+} 
 async function getLoginData(userlogin) {
     try{ 
         let pool = await sql.connect(configPortal);
@@ -264,6 +293,7 @@ async function selectJabatanGroup(
     }
   }
 module.exports = {
+    loginEproc,
     selectJabatanGroup,
     notification,
     login,

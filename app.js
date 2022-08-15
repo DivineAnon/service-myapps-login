@@ -67,6 +67,20 @@ router.route('/login').post((request, response) => {
     }
   })
 })
+router.route('/login-eproc').post((request, response) => {
+  let user = request.body?.user
+  // let password = request.body?.password
+ 
+  
+  login.loginEproc(user).then((data) => {
+    if(data[0]?.length>0){
+      var token = login.generateToken(data[0])
+      response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
+    }else{
+      response.status(403 ).json({ status: 'Fail',message:'Wrong NIK Or Password'});
+    }
+  })
+})
 router.route('/notification-portal').post((request, response) => {
   let token = request.headers.authorization 
   try {
