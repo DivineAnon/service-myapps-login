@@ -180,6 +180,196 @@ async function isExistMenu(kode) {
         console.log(error);
     }
 }
+async function listMenuMyAppsNew(
+    search,limit,page
+) {
+    let last = limit*page
+    let first = last - (limit-1)
+    let query = `
+    select * from(
+        select ROW_NUMBER() OVER 
+           (ORDER BY id desc) as row,
+            * from msmenumyappsnew 
+           where LOWER(menu) like '%${search?.toLowerCase()}%'
+    ) awek`
+    if(limit!=''&&page!=''){
+        query = query+` where row BETWEEN '${first}' AND '${last}'`
+    }
+    let query1 = `
+    select count(*) as tot from(
+        select ROW_NUMBER() OVER 
+           (ORDER BY id desc) as row,
+            * from msmenumyappsnew 
+           where LOWER(menu) like '%${search?.toLowerCase()}%'
+    ) awek`
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(query);
+        let data1 = await pool.request().query(query1);
+        return  {
+            data:login.recordsets[0],tot:data1.recordsets[0][0]['tot']
+            // ,
+            // query
+        };
+    }catch(error){
+        console.log(error);
+    }
+}
+async function addMenuMyappsNew(
+    menu,path,div,subdiv,dept,
+    unit,jabatan,group_user,user_list,cabang
+    ) {
+    try{
+        let pool = await sql.connect(configPortal);
+       
+        
+        let add = await pool.request().query(`
+        insert into 
+        msmenumyappsnew (
+            menu,path,div
+            subdiv,dept, unit, 
+            jabatan,group_user, user_list,cabang,
+            created_at,
+            updated_at) values 
+            ('${menu}','${path}','${div}',
+            '${subdiv}','${dept}','${unit}',
+            '${jabatan}','${group_user}','${user_list}','${cabang}',
+            '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}',
+            '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}'
+            )`);
+        return  add?.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function updateMenuMyappsNew(
+    id,menu,path,div,subdiv,dept,
+    unit,jabatan,group_user,user_list,cabang
+) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`
+        update msmenumyappsnew set 
+        menu = '${menu}', 
+        path = '${path}',
+        div = '${div}',
+        subdiv= '${subdiv}',
+        dept= '${dept}',
+        unit= '${unit}',
+        jabatan= '${jabatan}',
+        group_user= '${group_user}',
+        user_list= '${user_list}' ,
+        cabang= '${cabang}' 
+        where id = '${id}'`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+
+async function deleteMenuMyAppsNew(id) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`DELETE FROM msmenumyappsnew  where id = '${id}'`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function listSubMenuMyAppsNew(
+    search,limit,page
+) {
+    let last = limit*page
+    let first = last - (limit-1)
+    let query = `
+    select * from(
+        select ROW_NUMBER() OVER 
+           (ORDER BY id desc) as row,
+            * from mssubmenumyappsnew 
+           where LOWER(menu) like '%${search?.toLowerCase()}%'
+    ) awek`
+    if(limit!=''&&page!=''){
+        query = query+` where row BETWEEN '${first}' AND '${last}'`
+    }
+    let query1 = `
+    select count(*) as tot from(
+        select ROW_NUMBER() OVER 
+           (ORDER BY id desc) as row,
+            * from mssubmenumyappsnew 
+           where LOWER(menu) like '%${search?.toLowerCase()}%'
+    ) awek`
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(query);
+        let data1 = await pool.request().query(query1);
+        return  {
+            data:login.recordsets[0],tot:data1.recordsets[0][0]['tot']
+            // ,
+            // query
+        };
+    }catch(error){
+        console.log(error);
+    }
+}
+async function addSubMenuMyappsNew(
+    menu,path,div,subdiv,dept,
+    unit,jabatan,group_user,user_list,cabang) {
+    try{
+        let pool = await sql.connect(configPortal);
+       
+        
+        let add = await pool.request().query(`
+        insert into 
+        mssubmenumyappsnew (
+            menu,path,div
+            subdiv,dept, unit, 
+            jabatan,group_user, user_list,cabang,
+            created_at,
+            updated_at) values 
+            ('${menu}','${path}','${div}',
+            '${subdiv}','${dept}','${unit}',
+            '${jabatan}','${group_user}','${user_list}','${cabang}',
+            '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}',
+            '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}'
+            )`);
+        return  add?.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function updateSubMenuMyappsNew(
+    id,menu,path,div,subdiv,dept,
+    unit,jabatan,group_user,user_list,cabang
+) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`
+        update msmenumyappsnew set 
+        menu = '${menu}', 
+        path = '${path}',
+        div = '${div}',
+        subdiv= '${subdiv}',
+        dept= '${dept}',
+        unit= '${unit}',
+        jabatan= '${jabatan}',
+        group_user= '${group_user}',
+        user_list= '${user_list}' ,
+        cabang= '${cabang}' 
+        where id = '${id}'`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
+async function deleteSubMenuMyAppsNew(id) {
+    try{
+        let pool = await sql.connect(configPortal);
+        let login = await pool.request().query(`DELETE FROM mssubmenumyappsnew  where id = '${id}'`);
+        return  login.recordsets;
+    }catch(error){
+        console.log(error);
+    }
+}
 async function deleteMenu(kode) {
     try{
         let pool = await sql.connect(configPortal);
@@ -293,6 +483,14 @@ async function selectJabatanGroup(
     }
   }
 module.exports = {
+    listMenuMyAppsNew,
+    addMenuMyappsNew,
+    updateMenuMyappsNew,
+    deleteMenuMyAppsNew,
+    listSubMenuMyAppsNew,
+    addSubMenuMyappsNew,
+    updateSubMenuMyappsNew,
+    deleteSubMenuMyAppsNew,
     loginEproc,
     selectJabatanGroup,
     notification,

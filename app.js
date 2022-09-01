@@ -77,7 +77,7 @@ router.route('/login-eproc').post((request, response) => {
       var token = login.generateToken(data[0])
       response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
     }else{
-      response.status(403 ).json({ status: 'Fail',message:'Wrong NIK Or Password'});
+      response.status(403).json({ status: 'Fail',message:'Wrong NIK Or Password'});
     }
   })
 })
@@ -587,6 +587,32 @@ router.route('/login/:userlogin/:password').get((request, response) => {
     }
   
   })
+
+  router.route('/get-list-menu-new').post((request, response) => {
+    let token = request.headers.authorization 
+    let search = request.body?.search
+    let limit = request.body?.limit
+    let page = request.body?.page
+    try {
+      var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+       
+      login.listMenuMyAppsNew(search,limit,page).then((data) => {
+      
+        response.json({status:'Succsess',message:'Succsess fetch data',data:data});
+      })
+    } catch(err) {
+     
+    
+      if(err?.name==='TokenExpiredError'){
+        response.status(401).json({ status: 'Unauthorized',message:'Your session expired', });
+      }else{
+        response.status(500).json({ status: 'Server Error',message:'Invalid token' });
+         
+      }
+      // err
+    }
+  })
+  
 var  port = process.env.PORT || 8096;
 app.listen(port);
 console.log('Order API is runnning at ' + process.env.PORT);
