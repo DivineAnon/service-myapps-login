@@ -61,7 +61,7 @@ router.route('/login').post((request, response) => {
   login.login(user, password).then((data) => {
     if(data[0]?.length>0){
       var token = login.generateToken(data[0])
-      response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
+      response.json({status:'Success',message:'Login Success',data:data[0],token});
     }else{
       response.status(403 ).json({ status: 'Fail',message:'Wrong NIK Or Password'});
     }
@@ -75,7 +75,7 @@ router.route('/login-eproc').post((request, response) => {
   login.loginEproc(user).then((data) => {
     if(data[0]?.length>0){
       var token = login.generateToken(data[0])
-      response.json({status:'Succsess',message:'Login succsess',data:data[0],token});
+      response.json({status:'Success',message:'Login Success',data:data[0],token});
     }else{
       response.status(403).json({ status: 'Fail',message:'Wrong NIK Or Password'});
     }
@@ -88,7 +88,7 @@ router.route('/notification-portal').post((request, response) => {
      
     login.notification(decoded?.data[0]?.loginid).then((data) => {
     
-      response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+      response.json({status:'Success',message:'Success fetch data',data:data[0]});
     })
   } catch(err) {
    
@@ -110,7 +110,7 @@ router.route('/select-jabatan').post((request, response) => {
      
     login.selectJabatanGroup(search).then((data) => {
     
-      response.json({status:'Succsess',message:'Succsess fetch data',data:data});
+      response.json({status:'Success',message:'Success fetch data',data:data});
     })
   } catch(err) {
    
@@ -147,7 +147,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
        
       login.menuProgram(decoded?.data[0]?.loginid).then((data) => {
       
-        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+        response.json({status:'Success',message:'Success fetch data',data:data[0]});
       })
     } catch(err) {
      
@@ -174,7 +174,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
        
       login.menu(decoded?.data[0]?.loginid, request.params.kodeprogram).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+        response.json({status:'Success',message:'Success fetch data',data:data[0]});
       })
     } catch(err) {
       
@@ -195,7 +195,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
        
       login.submenu(decoded?.data[0]?.loginid, request.params.kodeprogram, request.params.kodemenu).then((data) => {
-        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+        response.json({status:'Success',message:'Success fetch data',data:data[0]});
       })
     } catch(err) {
         
@@ -228,7 +228,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
        
       login.listMenu(decoded?.data[0]?.loginid ).then((data) => {
-        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+        response.json({status:'Success',message:'Success fetch data',data:data[0]});
       })
     } catch(err) {
         
@@ -250,7 +250,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
        
       login.getLoginData(decoded?.data[0]?.loginid).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+        response.json({status:'Success',message:'Success fetch data',data:data[0]});
       })
     } catch(err) {
       
@@ -273,7 +273,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       login.resetPasswordData(decoded?.data[0]?.loginid,password).then((data) => {
  
-        response.json({status:'Succsess',message:'Reset Password Succsess',data});
+        response.json({status:'Success',message:'Reset Password Success',data});
       })
       
     } catch(err) {
@@ -297,7 +297,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       login.isExistMenu(code).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess check',data:data});
+        response.json({status:'Success',message:'Success check',data:data});
       })
       
     } catch(err) {
@@ -331,7 +331,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       login.deleteMenu(code).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess delete menu',data:data});
+        response.json({status:'Success',message:'Success delete menu',data:data});
       })
       
     } catch(err) {
@@ -375,7 +375,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
        
       login.updateMenu(kode,nama,file,folder,decoded?.data[0]?.loginid).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess update menu',data});
+        response.json({status:'Success',message:'Success update menu',data});
       })
     } catch(err) {
       
@@ -416,7 +416,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       login.addMenu(kode,nama,file,folder,decoded?.data[0]?.loginid).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess add menu',data});
+        response.json({status:'Success',message:'Success add menu',data});
       })
       
     } catch(err) {
@@ -437,7 +437,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
        
       login.listSubMenu(request.params.kode).then((data) => {
-        response.json({status:'Succsess',message:'Succsess fetch data',data:data[0]});
+        response.json({status:'Success',message:'Success fetch data',data:data[0]});
       })
     } catch(err) {
         
@@ -484,7 +484,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
        
       login.updateSubMenu(m_program,kode,nama,file,child,decoded?.data[0]?.loginid).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess update menu',data});
+        response.json({status:'Success',message:'Success update menu',data});
       })
     } catch(err) {
       
@@ -522,7 +522,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       login.deleteSubMenu(m_program,code).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess delete sub menu',data:data});
+        response.json({status:'Success',message:'Success delete sub menu',data:data});
       })
       
     } catch(err) {
@@ -571,7 +571,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
       var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
       login.addSubMenu(m_program,kode,nama,file,child,decoded?.data[0]?.loginid).then((data) => {
  
-        response.json({status:'Succsess',message:'Succsess add sub menu',data:data});
+        response.json({status:'Success',message:'Success add sub menu',data:data});
       })
       
     } catch(err) {
@@ -598,7 +598,7 @@ router.route('/login/:userlogin/:password').get((request, response) => {
        
       login.listMenuMyAppsNew(search,limit,page).then((data) => {
       
-        response.json({status:'Succsess',message:'Succsess fetch data',data:data});
+        response.json({status:'Success',message:'Success fetch data',data:data});
       })
     } catch(err) {
      
