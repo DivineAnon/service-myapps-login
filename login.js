@@ -19,7 +19,11 @@ async function login(userlogin, password) {
         query(`SELECT '01' as m_program, a.m_login as loginid, 
         b.m_nik as nik, c.m_foto as profile, 
         b.m_nama as nama, b.m_cabang as cabang,
-         b.m_departemen as departemen, b.m_divisi as divisi, 
+         b.m_departemen as departemen,
+         e.m_departemen as departemen_name,
+          b.m_divisi as divisi, 
+           b.m_atasan1 as m_atasan1,
+           f.m_nama as m_nama_atasan1,
          b.m_subdivisi as subdivisi, b.m_golkar as level, 
          a.m_brand as brand, a.m_lokasi as store, 
          a.m_stock as stock, a.m_divisi2 as groupuser, 
@@ -27,12 +31,24 @@ async function login(userlogin, password) {
          b.m_lokasi as lokasi, b.m_subdivisinew as subdivisinew, 
          convert(varchar(20),b.m_tglkeluar,103) as cotglkeluar, 
          b.m_tglkeluar as tglkeluar, a.m_status as status, 
-         d.m_emailkantor
+         d.m_emailkantor,
+         CASE
+				WHEN g.is_atasan1 > 0 THEN '1'
+				ELSE '0'
+			END AS is_atasan1
+         
          FROM 
          msuser a
          join dbhrd.dbo.mskaryawan b on a.m_nik = b.m_nik 
          join dbhrd.dbo.msdetilkaryawan c on a.m_nik = c.m_nik
          join dbhrd.dbo.msemailkaryawan d on a.m_nik = d.m_nik
+         join dbhrd.dbo.msdepartemen e on b.m_departemen = e.m_iddept
+         join dbhrd.dbo.mskaryawan f on b.m_atasan1 = f.m_nik 
+         left join (
+			select m_atasan1, COUNT(*)as is_atasan1
+			from dbhrd.dbo.mskaryawan
+			group by m_atasan1
+         ) g on a.m_nik = g.m_atasan1
          WHERE a.m_nik = b.m_nik AND b.m_nik = c.m_nik 
           AND UPPER(a.m_login) = @userlogin AND 
          PWDCOMPARE(@password, a.m_newpass) = 1`)
