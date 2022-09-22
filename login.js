@@ -23,6 +23,8 @@ async function login(userlogin, password) {
          e.m_departemen as departemen_name,
           b.m_divisi as divisi, 
            b.m_atasan1 as m_atasan1,
+           b.m_atasan2 as m_atasan2,
+           b.m_kode_pangkat as m_kode_pangkat,
            f.m_nama as m_nama_atasan1,
          b.m_subdivisi as subdivisi, b.m_golkar as level, 
          a.m_brand as brand, a.m_lokasi as store, 
