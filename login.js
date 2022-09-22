@@ -60,7 +60,7 @@ async function login(userlogin, password) {
         //  b.m_departemen as departemen, b.m_divisi as divisi, 
         //  b.m_subdivisi as subdivisi, b.m_golkar as level, 
         //  a.m_brand as brand, a.m_lokasi as store, 
-        //  a.m_stock as stock, a.m_divisi2 as groupuser, 
+        //  a.m_stock as stock, a.m_divisi2 as groupuser,  
         //  b.m_jabatan,b.m_subdivisinew as brand2,
         //  b.m_lokasi as lokasi, b.m_subdivisinew as subdivisinew, 
         //  convert(varchar(20),b.m_tglkeluar,103) as cotglkeluar, 
